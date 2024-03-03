@@ -1,4 +1,4 @@
-package get
+package responsehandlers
 
 import (
 	"github.com/gin-gonic/gin"

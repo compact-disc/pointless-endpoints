@@ -2,63 +2,64 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"pointless-endpoints/get"
+	"pointless-endpoints/responsehandlers"
 )
 
 func main() {
-	r := gin.Default()
+	router := gin.Default()
 
-	/*
-		Get Endpoint Handlers
-	*/
+	addGetHandlers(router)
+
+	router.Run()
+}
+
+func addGetHandlers(router *gin.Engine) {
 	// Informational - 100
-	r.GET("/continue", get.Continue())
+	router.GET("/continue", responsehandlers.Continue())
 
 	// Success - 200
-	r.GET("/ok", get.Ok())
-	r.GET("/created", get.Created())
-	r.GET("/accepted", get.Accepted())
-	r.GET("/noContent", get.NoContent())
+	router.GET("/ok", responsehandlers.Ok())
+	router.GET("/created", responsehandlers.Created())
+	router.GET("/accepted", responsehandlers.Accepted())
+	router.GET("/noContent", responsehandlers.NoContent())
 
 	// Redirection - 300
-	r.GET("/movedPermanently", get.MovedPermanently())
-	r.GET("/found", get.Found())
-	r.GET("/temporaryRedirect", get.TemporaryRedirect())
-	r.GET("/permanentRedirect", get.PermanentRedirect())
+	router.GET("/movedPermanently", responsehandlers.MovedPermanently())
+	router.GET("/found", responsehandlers.Found())
+	router.GET("/temporaryRedirect", responsehandlers.TemporaryRedirect())
+	router.GET("/permanentRedirect", responsehandlers.PermanentRedirect())
 
 	// Client Errors - 400
-	r.GET("/badRequest", get.BadRequest())
-	r.GET("/unauthorized", get.Unauthorized())
-	r.GET("/forbidden", get.Forbidden())
-	r.GET("/notFound", get.NotFound())
-	r.GET("/methodNotAllowed", get.MethodNotAllowed())
-	r.GET("/notAcceptable", get.NotAcceptable())
-	r.GET("/proxyAuthRequired", get.ProxyAuthRequired())
-	r.GET("/requestTimeout", get.RequestTimeout())
-	r.GET("/conflict", get.Conflict())
-	r.GET("/gone", get.Conflict())
-	r.GET("/lengthRequired", get.LengthRequired())
-	r.GET("/preconditionFailed", get.PreconditionFailed())
-	r.GET("/payloadTooLarge", get.PayloadTooLarge())
-	r.GET("/uriTooLong", get.UriTooLong())
-	r.GET("/unsupportedMediaType", get.UnsupportedMediaType())
-	r.GET("/rangeNotSatisfiable", get.RangeNotSatisfiable())
-	r.GET("/expectationFailed", get.ExpectationFailed())
-	r.GET("/iAmTeapot", get.ImATeapot())
-	r.GET("/misdirectedRequest", get.MisdirectedRequest())
-	r.GET("/unprocessableContent", get.UnprocessableContent())
-	r.GET("/tooManyRequests", get.TooManyRequests())
-	r.GET("/unavailableForLegalReasons", get.UnavailableForLegalReasons())
+	router.GET("/badRequest", responsehandlers.BadRequest())
+	router.GET("/unauthorized", responsehandlers.Unauthorized())
+	router.GET("/forbidden", responsehandlers.Forbidden())
+	router.GET("/notFound", responsehandlers.NotFound())
+	router.GET("/methodNotAllowed", responsehandlers.MethodNotAllowed())
+	router.GET("/notAcceptable", responsehandlers.NotAcceptable())
+	router.GET("/proxyAuthRequired", responsehandlers.ProxyAuthRequired())
+	router.GET("/requestTimeout", responsehandlers.RequestTimeout())
+	router.GET("/conflict", responsehandlers.Conflict())
+	router.GET("/gone", responsehandlers.Gone())
+	router.GET("/lengthRequired", responsehandlers.LengthRequired())
+	router.GET("/preconditionFailed", responsehandlers.PreconditionFailed())
+	router.GET("/payloadTooLarge", responsehandlers.PayloadTooLarge())
+	router.GET("/uriTooLong", responsehandlers.UriTooLong())
+	router.GET("/unsupportedMediaType", responsehandlers.UnsupportedMediaType())
+	router.GET("/rangeNotSatisfiable", responsehandlers.RangeNotSatisfiable())
+	router.GET("/expectationFailed", responsehandlers.ExpectationFailed())
+	router.GET("/iAmTeapot", responsehandlers.ImATeapot())
+	router.GET("/misdirectedRequest", responsehandlers.MisdirectedRequest())
+	router.GET("/unprocessableContent", responsehandlers.UnprocessableContent())
+	router.GET("/tooManyRequests", responsehandlers.TooManyRequests())
+	router.GET("/unavailableForLegalReasons", responsehandlers.UnavailableForLegalReasons())
 
 	// Server Errors - 500
-	r.GET("/internalServerError", get.InternalServerError())
-	r.GET("/notImplemented", get.NotImplemented())
-	r.GET("/badGateway", get.BadGateway())
-	r.GET("/serviceUnavailable", get.ServiceUnavailable())
-	r.GET("/gatewayTimeout", get.GatewayTimeout())
-	r.GET("/httpVersionNotSupported", get.HttpVersionNotSupported())
-	r.GET("/notExtended", get.NotExtended())
-	r.GET("/networkAuthenticationRequired", get.NetworkAuthenticationRequired())
-
-	r.Run()
+	router.GET("/internalServerError", responsehandlers.InternalServerError())
+	router.GET("/notImplemented", responsehandlers.NotImplemented())
+	router.GET("/badGateway", responsehandlers.BadGateway())
+	router.GET("/serviceUnavailable", responsehandlers.ServiceUnavailable())
+	router.GET("/gatewayTimeout", responsehandlers.GatewayTimeout())
+	router.GET("/httpVersionNotSupported", responsehandlers.HttpVersionNotSupported())
+	router.GET("/notExtended", responsehandlers.NotExtended())
+	router.GET("/networkAuthenticationRequired", responsehandlers.NetworkAuthenticationRequired())
 }
