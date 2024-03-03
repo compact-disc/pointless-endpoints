@@ -5,61 +5,98 @@ import (
 	"pointless-endpoints/responsehandlers"
 )
 
+const (
+	GET    int = 0
+	PUT        = 1
+	POST       = 2
+	PATCH      = 3
+	DELETE     = 4
+)
+
 func main() {
 	router := gin.Default()
 
-	addGetHandlers(router)
+	addHandlers(router)
 
 	router.Run()
 }
 
-func addGetHandlers(router *gin.Engine) {
-	// Informational - 100
-	router.GET("/continue", responsehandlers.Continue())
+func addHandlers(router *gin.Engine) {
 
-	// Success - 200
-	router.GET("/ok", responsehandlers.Ok())
-	router.GET("/created", responsehandlers.Created())
-	router.GET("/accepted", responsehandlers.Accepted())
-	router.GET("/noContent", responsehandlers.NoContent())
+	for i := 0; i <= DELETE; i++ {
 
-	// Redirection - 300
-	router.GET("/movedPermanently", responsehandlers.MovedPermanently())
-	router.GET("/found", responsehandlers.Found())
-	router.GET("/temporaryRedirect", responsehandlers.TemporaryRedirect())
-	router.GET("/permanentRedirect", responsehandlers.PermanentRedirect())
+		// Informational - 100
+		addHandler(i, router, "/continue", responsehandlers.Continue())
 
-	// Client Errors - 400
-	router.GET("/badRequest", responsehandlers.BadRequest())
-	router.GET("/unauthorized", responsehandlers.Unauthorized())
-	router.GET("/forbidden", responsehandlers.Forbidden())
-	router.GET("/notFound", responsehandlers.NotFound())
-	router.GET("/methodNotAllowed", responsehandlers.MethodNotAllowed())
-	router.GET("/notAcceptable", responsehandlers.NotAcceptable())
-	router.GET("/proxyAuthRequired", responsehandlers.ProxyAuthRequired())
-	router.GET("/requestTimeout", responsehandlers.RequestTimeout())
-	router.GET("/conflict", responsehandlers.Conflict())
-	router.GET("/gone", responsehandlers.Gone())
-	router.GET("/lengthRequired", responsehandlers.LengthRequired())
-	router.GET("/preconditionFailed", responsehandlers.PreconditionFailed())
-	router.GET("/payloadTooLarge", responsehandlers.PayloadTooLarge())
-	router.GET("/uriTooLong", responsehandlers.UriTooLong())
-	router.GET("/unsupportedMediaType", responsehandlers.UnsupportedMediaType())
-	router.GET("/rangeNotSatisfiable", responsehandlers.RangeNotSatisfiable())
-	router.GET("/expectationFailed", responsehandlers.ExpectationFailed())
-	router.GET("/iAmTeapot", responsehandlers.ImATeapot())
-	router.GET("/misdirectedRequest", responsehandlers.MisdirectedRequest())
-	router.GET("/unprocessableContent", responsehandlers.UnprocessableContent())
-	router.GET("/tooManyRequests", responsehandlers.TooManyRequests())
-	router.GET("/unavailableForLegalReasons", responsehandlers.UnavailableForLegalReasons())
+		// Success - 200
+		addHandler(i, router, "/ok", responsehandlers.Ok())
+		addHandler(i, router, "/created", responsehandlers.Created())
+		addHandler(i, router, "/accepted", responsehandlers.Accepted())
+		addHandler(i, router, "/noContent", responsehandlers.NoContent())
 
-	// Server Errors - 500
-	router.GET("/internalServerError", responsehandlers.InternalServerError())
-	router.GET("/notImplemented", responsehandlers.NotImplemented())
-	router.GET("/badGateway", responsehandlers.BadGateway())
-	router.GET("/serviceUnavailable", responsehandlers.ServiceUnavailable())
-	router.GET("/gatewayTimeout", responsehandlers.GatewayTimeout())
-	router.GET("/httpVersionNotSupported", responsehandlers.HttpVersionNotSupported())
-	router.GET("/notExtended", responsehandlers.NotExtended())
-	router.GET("/networkAuthenticationRequired", responsehandlers.NetworkAuthenticationRequired())
+		// Redirection - 300
+		addHandler(i, router, "/movedPermanently", responsehandlers.MovedPermanently())
+		addHandler(i, router, "/found", responsehandlers.Found())
+		addHandler(i, router, "/temporaryRedirect", responsehandlers.TemporaryRedirect())
+		addHandler(i, router, "/permanentRedirect", responsehandlers.PermanentRedirect())
+
+		// Client Errors - 400
+		addHandler(i, router, "/badRequest", responsehandlers.BadRequest())
+		addHandler(i, router, "/unauthorized", responsehandlers.Unauthorized())
+		addHandler(i, router, "/forbidden", responsehandlers.Forbidden())
+		addHandler(i, router, "/notFound", responsehandlers.NotFound())
+		addHandler(i, router, "/methodNotAllowed", responsehandlers.MethodNotAllowed())
+		addHandler(i, router, "/notAcceptable", responsehandlers.NotAcceptable())
+		addHandler(i, router, "/proxyAuthRequired", responsehandlers.ProxyAuthRequired())
+		addHandler(i, router, "/requestTimeout", responsehandlers.RequestTimeout())
+		addHandler(i, router, "/conflict", responsehandlers.Conflict())
+		addHandler(i, router, "/gone", responsehandlers.Gone())
+		addHandler(i, router, "/lengthRequired", responsehandlers.LengthRequired())
+		addHandler(i, router, "/preconditionFailed", responsehandlers.PreconditionFailed())
+		addHandler(i, router, "/payloadTooLarge", responsehandlers.PayloadTooLarge())
+		addHandler(i, router, "/uriTooLong", responsehandlers.UriTooLong())
+		addHandler(i, router, "/unsupportedMediaType", responsehandlers.UnsupportedMediaType())
+		addHandler(i, router, "/rangeNotSatisfiable", responsehandlers.RangeNotSatisfiable())
+		addHandler(i, router, "/expectationFailed", responsehandlers.ExpectationFailed())
+		addHandler(i, router, "/iAmTeapot", responsehandlers.ImATeapot())
+		addHandler(i, router, "/misdirectedRequest", responsehandlers.MisdirectedRequest())
+		addHandler(i, router, "/unprocessableContent", responsehandlers.UnprocessableContent())
+		addHandler(i, router, "/tooManyRequests", responsehandlers.TooManyRequests())
+		addHandler(i, router, "/unavailableForLegalReasons", responsehandlers.UnavailableForLegalReasons())
+
+		// Server Errors - 500
+		addHandler(i, router, "/internalServerError", responsehandlers.InternalServerError())
+		addHandler(i, router, "/notImplemented", responsehandlers.NotImplemented())
+		addHandler(i, router, "/badGateway", responsehandlers.BadGateway())
+		addHandler(i, router, "/serviceUnavailable", responsehandlers.ServiceUnavailable())
+		addHandler(i, router, "/gatewayTimeout", responsehandlers.GatewayTimeout())
+		addHandler(i, router, "/httpVersionNotSupported", responsehandlers.HttpVersionNotSupported())
+		addHandler(i, router, "/notExtended", responsehandlers.NotExtended())
+		addHandler(i, router, "/networkAuthenticationRequired", responsehandlers.NetworkAuthenticationRequired())
+	}
+}
+
+func addHandler(
+	method int,
+	router *gin.Engine,
+	relativePath string,
+	handlerFunc gin.HandlerFunc,
+) {
+	switch method {
+	case GET:
+		router.GET(relativePath, handlerFunc)
+		break
+	case PUT:
+		router.PUT(relativePath, handlerFunc)
+		break
+	case POST:
+		router.POST(relativePath, handlerFunc)
+		break
+	case PATCH:
+		router.PATCH(relativePath, handlerFunc)
+		break
+	case DELETE:
+		router.DELETE(relativePath, handlerFunc)
+		break
+	}
 }
